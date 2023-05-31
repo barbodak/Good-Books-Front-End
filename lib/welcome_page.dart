@@ -28,7 +28,7 @@ class _welcome_pageState extends State<welcome_page> {
           padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
           child: Column(
             children: [
-              const Text("Welcome !", textScaleFactor: 4),
+              const Text("Welcome :)", textScaleFactor: 4),
               const Text("login or signup", textScaleFactor: 2),
               const SizedBox(
                 height: 50,
