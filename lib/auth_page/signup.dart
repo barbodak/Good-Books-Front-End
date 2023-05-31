@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupState extends State<Signup> {
   bool hidePassword = true;
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,15 @@ class _LoginPageState extends State<LoginPage> {
       home: Scaffold(
         // appBar: AppBar(
         //     title: const Text(
-        //   'Login Page ! login you fucker',
+        //   'Signup Page ! Signup you fucker',
         // )),
         body: Center(
           child: Container(
             width: 400,
             height: 500,
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            // padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const TextField(
                   maxLines: 1,
@@ -61,6 +61,28 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                TextFormField(
+                  maxLines: 1,
+                  maxLength: 100,
+                  obscureText: hidePassword,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'confirm your password',
+                    counterText: ' ',
+                    suffixIcon: IconButton(
+                      icon: Icon(hidePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      onPressed: () {
+                        setState(
+                          () {
+                            hidePassword = !hidePassword;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
@@ -68,11 +90,14 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => Signup()),
                       );
                     },
-                    child: const Text("LogIn"),
+                    child: const Text("SignUp"),
                   ),
+                ),
+                const SizedBox(
+                  height: 50,
                 ),
               ],
             ),
