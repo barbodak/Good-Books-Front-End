@@ -30,8 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.3
-  shared_preferences: ^2.0.15
+  # provider: ^6.0.3
+  # shared_preferences: ^2.0.15
 
 
 
