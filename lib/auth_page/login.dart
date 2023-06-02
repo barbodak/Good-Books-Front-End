@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/homePage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => homePage()),
                       );
                     },
                     child: const Text("LogIn"),

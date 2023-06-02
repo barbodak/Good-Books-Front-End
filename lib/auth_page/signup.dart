@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/homePage.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -90,7 +91,7 @@ class _SignupState extends State<Signup> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Signup()),
+                        MaterialPageRoute(builder: (context) => homePage()),
                       );
                     },
                     child: const Text("SignUp"),
