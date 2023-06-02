@@ -11,22 +11,50 @@ class _homePageState extends State<homePage> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final ThemeData myTheme = ThemeData(
+      colorSchemeSeed: Color(0xff6750a4),
+      useMaterial3: true,
+      fontFamily: 'Switzer',
+      brightness: Brightness.light,
+    );
+    final ColorScheme colorScheme = myTheme.colorScheme;
     return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: Color(0xff6750a4),
-        useMaterial3: true,
-      ),
+      theme: myTheme,
       home: Scaffold(
         appBar: AppBar(
-          elevation: 4,
+          leading: IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.account_circle_rounded,
+              size: 30,
+            ),
+          ),
+          leadingWidth: 85, // default is 56
+          title: Text(
+            "Home",
+            style: TextStyle(
+              fontFamily: 'Switzer',
+              fontWeight: FontWeight.w900,
+              fontSize: 28.0,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.search,
+                size: 30,
+              ),
+            ),
+          ],
         ),
         body: <Widget>[
           ListView.builder(
             itemCount: 25,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                tileColor: colorScheme.primary,
+                tileColor: colorScheme.primary.withOpacity(0.6),
                 title: Text('do $index'),
               );
             },
@@ -35,6 +63,43 @@ class _homePageState extends State<homePage> {
             color: Colors.green,
             alignment: Alignment.center,
             child: const Text('Page 2'),
+          ),
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: colorScheme.secondary,
+                pinned: true,
+                snap: true,
+                floating: true,
+                expandedHeight: 60.0,
+                flexibleSpace: const FlexibleSpaceBar(
+                  title: Text('SliverAppBar'),
+                  // background: FlutterLogo(,
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                  child: Center(
+                    child: Text('Scroll to see the SliverAppBar in effect.'),
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return Container(
+                      color: index.isOdd ? Colors.white : Colors.black12,
+                      height: 100.0,
+                      child: Center(
+                        child: Text('$index', textScaleFactor: 5),
+                      ),
+                    );
+                  },
+                  childCount: 20,
+                ),
+              ),
+            ],
           ),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
@@ -49,8 +114,10 @@ class _homePageState extends State<homePage> {
           destinations: const <Widget>[
             NavigationDestination(
               selectedIcon: Icon(Icons.home_filled),
-              icon: Icon(Icons.home_filled,
-                  color: Color.fromARGB(255, 72, 72, 72)),
+              icon: Icon(
+                Icons.home_filled,
+                // color: Color.fromARGB(255, 72, 72, 72),
+              ),
               label: 'Home',
             ),
             NavigationDestination(

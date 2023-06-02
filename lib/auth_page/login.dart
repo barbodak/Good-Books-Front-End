@@ -15,6 +15,11 @@ class _LoginPageState extends State<LoginPage> {
     final ButtonStyle style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     return MaterialApp(
+      theme: ThemeData(
+        colorSchemeSeed: Color(0xff6750a4),
+        useMaterial3: true,
+        fontFamily: 'Switzer',
+      ),
       home: Scaffold(
         // appBar: AppBar(
         //     title: const Text(
@@ -64,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: ElevatedButton(
+                  child: FilledButton(
                     style: style,
                     onPressed: () {
                       Navigator.push(
