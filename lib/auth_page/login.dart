@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/homePage.dart';
+import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,11 +16,7 @@ class _LoginPageState extends State<LoginPage> {
     final ButtonStyle style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: Color(0xff6750a4),
-        useMaterial3: true,
-        fontFamily: 'Switzer',
-      ),
+      theme: globalTheme.get(),
       home: Scaffold(
         // appBar: AppBar(
         //     title: const Text(
@@ -29,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             width: 400,
             height: 500,
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
+            padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -49,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                   maxLength: 100,
                   obscureText: hidePassword,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     labelText: 'Enter your password',
                     counterText: ' ',
                     hintText: 'make a good password',
@@ -69,15 +66,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: FilledButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => homePage()),
-                      );
-                    },
-                    child: const Text("LogIn"),
+                  child: Hero(
+                    tag: 'in',
+                    child: FilledButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const homePage(),
+                          ),
+                        );
+                      },
+                      child: const Text("LogIn"),
+                    ),
                   ),
                 ),
               ],

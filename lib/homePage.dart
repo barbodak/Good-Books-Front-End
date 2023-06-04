@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/profile/pfpPage.dart';
+import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -11,26 +13,30 @@ class _homePageState extends State<homePage> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final ThemeData myTheme = ThemeData(
-      colorSchemeSeed: Color(0xff6750a4),
-      useMaterial3: true,
-      fontFamily: 'Switzer',
-      brightness: Brightness.light,
-    );
-    final ColorScheme colorScheme = myTheme.colorScheme;
+    final ColorScheme colorScheme = globalTheme.get().colorScheme;
     return MaterialApp(
-      theme: myTheme,
+      theme: globalTheme.get(),
       home: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.account_circle_rounded,
-              size: 30,
+          leading: Hero(
+            tag: '1',
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const pfpPage(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.account_circle_rounded,
+                size: 30,
+              ),
             ),
           ),
           leadingWidth: 85, // default is 56
-          title: Text(
+          title: const Text(
             "Home",
             style: TextStyle(
               fontFamily: 'Switzer',
@@ -42,7 +48,7 @@ class _homePageState extends State<homePage> {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 size: 30,
               ),

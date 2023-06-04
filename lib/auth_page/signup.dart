@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/homePage.dart';
+import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -15,18 +16,14 @@ class _SignupState extends State<Signup> {
     final ButtonStyle style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: Color(0xff6750a4),
-        useMaterial3: true,
-        fontFamily: 'Switzer',
-      ),
+      theme: globalTheme.get(),
       home: Scaffold(
         // appBar: AppBar(
         //     title: const Text(
         //   'Signup Page ! Signup you fucker',
         // )),
         body: Center(
-          child: Container(
+          child: SizedBox(
             width: 400,
             height: 500,
             // padding: EdgeInsets.fromLTRB(0, 50, 0, 50),
@@ -49,7 +46,7 @@ class _SignupState extends State<Signup> {
                   maxLength: 100,
                   obscureText: hidePassword,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     labelText: 'Enter your password',
                     counterText: ' ',
                     hintText: 'make a good password',
@@ -72,7 +69,7 @@ class _SignupState extends State<Signup> {
                   maxLength: 100,
                   obscureText: hidePassword,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     labelText: 'confirm your password',
                     counterText: ' ',
                     suffixIcon: IconButton(
@@ -91,15 +88,18 @@ class _SignupState extends State<Signup> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: FilledButton(
-                    style: style,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => homePage()),
-                      );
-                    },
-                    child: const Text("SignUp"),
+                  child: Hero(
+                    tag: 'up',
+                    child: FilledButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const homePage()),
+                        );
+                      },
+                      child: const Text("SignUp"),
+                    ),
                   ),
                 ),
                 const SizedBox(
