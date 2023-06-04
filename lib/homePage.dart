@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/profile/pfpPage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
+import 'package:the_fidibo_project/homePageDestinations/homeDest.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -56,57 +57,13 @@ class _homePageState extends State<homePage> {
           ],
         ),
         body: <Widget>[
-          ListView.builder(
-            itemCount: 25,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                tileColor: colorScheme.primary.withOpacity(0.6),
-                title: Text('do $index'),
-              );
-            },
-          ),
+          homeDest(),
           Container(
             color: Colors.green,
             alignment: Alignment.center,
             child: const Text('Page 2'),
           ),
-          CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                backgroundColor: colorScheme.secondary,
-                pinned: true,
-                snap: true,
-                floating: true,
-                expandedHeight: 60.0,
-                flexibleSpace: const FlexibleSpaceBar(
-                  title: Text('SliverAppBar'),
-                  // background: FlutterLogo(,
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 20,
-                  child: Center(
-                    child: Text('Scroll to see the SliverAppBar in effect.'),
-                  ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    return Container(
-                      color: index.isOdd ? Colors.white : Colors.black12,
-                      height: 100.0,
-                      child: Center(
-                        child: Text('$index', textScaleFactor: 5),
-                      ),
-                    );
-                  },
-                  childCount: 20,
-                ),
-              ),
-            ],
-          ),
+          homeDest(),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {
