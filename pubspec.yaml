@@ -53,6 +53,15 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+  flutter_launcher_icons: "^0.13.1"
+  
+flutter_launcher_icons:
+  android: true
+  image_path: "assets/icon/1024.png"
+  adaptive_icon_foreground: "assets/icon/1024.png"
+  adaptive_icon_background: "assets/icon/w.png"
+
+
 # The following section is specific to Flutter packages.
 flutter:
   assets:

@@ -38,7 +38,7 @@ class _homePageState extends State<homePage> {
           ),
           leadingWidth: 85, // default is 56
           title: const Text(
-            "Home",
+            "Good Books",
             style: TextStyle(
               fontFamily: 'Switzer',
               fontWeight: FontWeight.w900,

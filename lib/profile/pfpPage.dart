@@ -22,7 +22,7 @@ class _pfpPageState extends State<pfpPage> {
             appBar: AppBar(),
             // backgroundColor: globalTheme.getCS().surfaceTint.withOpacity(1),
             body: Center(
-              child: Column(
+              child: ListView(
                 children: [
                   // SizedBox(
                   //   height: 30,
