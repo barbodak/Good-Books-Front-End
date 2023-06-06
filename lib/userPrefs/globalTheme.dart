@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class globalTheme {
+  //extends InheritedWidget {
   static bool isDrak = false;
   static Color mySeedColor = Color.fromARGB(255, 67, 205, 67);
 

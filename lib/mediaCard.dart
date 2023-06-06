@@ -3,6 +3,7 @@ import 'package:the_fidibo_project/BookWidget.dart';
 import 'package:the_fidibo_project/book.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/widgetAssets.dart';
+import 'package:the_fidibo_project/MediaGrid.dart';
 
 class mediaCard extends StatefulWidget {
   final Color BackgroundColor;
@@ -21,7 +22,8 @@ class mediaCard extends StatefulWidget {
 class _mediaCardState extends State<mediaCard> {
   @override
   Widget build(BuildContext context) {
-    widget..Books.shuffle();
+    widget.Books.shuffle();
+    final Color c = widget.BackgroundColor;
     return Container(
       height: 400,
       // width: 200,
@@ -30,6 +32,7 @@ class _mediaCardState extends State<mediaCard> {
       child: Column(
         children: [
           ListTile(
+            // tileColor: widget.BackgroundColor,
             title: Text(
               widget.CardName,
               style: TextStyle(
@@ -37,13 +40,41 @@ class _mediaCardState extends State<mediaCard> {
                 fontSize: 19,
               ),
             ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.arrow_forward_ios_outlined,
-                size: 15,
-              ),
+            trailing: Icon(
+              Icons.arrow_forward_ios_outlined,
+              size: 20,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Builder(
+                    builder: (context) {
+                      // Using the same theme as the first page
+                      return Theme(
+                        data: globalTheme.get().copyWith(
+                              appBarTheme: AppBarTheme(
+                                  // color: widget.BackgroundColor, // Use any color
+                                  ),
+                            ),
+                        child: Scaffold(
+                          appBar: AppBar(
+                            title: Text(
+                              widget.CardName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w900,
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                          body: MediaGrid(Books: widget.Books),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
           ),
           SizedBox(
             height: 10,
@@ -54,13 +85,17 @@ class _mediaCardState extends State<mediaCard> {
               itemCount: widget.Books.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                //
                 return Row(
                   children: [
                     SizedBox(
                       width: 10,
                     ),
-                    bookWidget(myBook: widget.Books[index]),
+                    bookWidget(
+                      myBook: widget.Books[index],
+                      Width: 150,
+                      Hight: 200,
+                      bdis: 10,
+                    ),
                   ],
                 );
               },

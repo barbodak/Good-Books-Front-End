@@ -118,7 +118,7 @@ class _homeDestState extends State<homeDest> {
                             CardName: 'Top Sellers',
                             Books: myBooks),
                       ],
-                    ),
+                    )
                   ],
                 ),
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/profile/pfpPage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/homePageDestinations/homeDest.dart';
+import 'package:the_fidibo_project/homePageDestinations/LibraryDest.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -58,12 +59,16 @@ class _homePageState extends State<homePage> {
         ),
         body: <Widget>[
           homeDest(),
+          LibraryDest(),
           Container(
             color: Colors.green,
             alignment: Alignment.center,
-            child: const Text('Page 2'),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: const Text(
+                  'shop kolan search bar va category e ke biain tavafoogh konim back ende kolesh. \n codam khobe nomre kamel bedin lotfan alan 6 sobhe hanooz nakhabidam\ndaram mimirim in che proje iye akhe'),
+            ),
           ),
-          homeDest(),
         ][currentPageIndex],
         bottomNavigationBar: NavigationBar(
           onDestinationSelected: (int index) {

@@ -4,7 +4,15 @@ import 'package:the_fidibo_project/book.dart';
 
 class bookWidget extends StatefulWidget {
   final book myBook;
-  const bookWidget({super.key, required this.myBook});
+  final double Width;
+  final double Hight;
+  final double bdis;
+  const bookWidget(
+      {super.key,
+      required this.myBook,
+      required this.Width,
+      required this.Hight,
+      required this.bdis});
 
   @override
   State<bookWidget> createState() => _bookWidgetState();
@@ -15,21 +23,23 @@ class _bookWidgetState extends State<bookWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       child: SizedBox(
-        width: 150,
+        width: widget.Width,
+        // height: widget.Width + widget.bdis + 200,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              width: 150,
+              width: widget.Width,
               child: Image.asset(
                 widget
                     .myBook.cover, // use widget.myBook instead of Widget.myBook
-                height: 200,
+                height: widget.Hight,
               ),
               // ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: widget.bdis),
             SizedBox(
-              width: 150,
+              width: widget.Width,
               child: Text(
                 widget
                     .myBook.name, // use widget.myBook instead of Widget.myBook
@@ -40,7 +50,7 @@ class _bookWidgetState extends State<bookWidget> {
               ),
             ),
             SizedBox(
-              width: 150,
+              width: widget.Width,
               child: Text(widget
                   .myBook.author), // use widget.myBook instead of Widget.myBook
             ),

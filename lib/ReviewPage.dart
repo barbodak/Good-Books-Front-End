@@ -44,7 +44,8 @@ class _ReviewPageState extends State<ReviewPage> {
                         leading: RatingBar.builder(
                           ignoreGestures: true,
                           itemSize: 20,
-                          initialRating: widget.reviewHandler.avr,
+                          initialRating:
+                              widget.reviewHandler.reviews[index].rating / 1.0,
                           minRating: 1,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
