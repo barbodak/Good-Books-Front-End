@@ -1,16 +1,6 @@
 # the_fidibo_project
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A Flutter Andriod app Simular to Apple books of Google play books.
+Currently the project dosn't have a backend
+![Screenshot_1686059769](https://github.com/barbodak/the_fidibo_project/assets/98666418/52983f37-e528-48ab-85f2-50f7522e6059)
+![Screenshot_1686059785](https://github.com/barbodak/the_fidibo_project/assets/98666418/a57bb70f-c7ca-4b0c-b9e6-ca14dda2afce)
