@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/homePage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
+import 'package:the_fidibo_project/Network.dart';
+import 'package:the_fidibo_project/user.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _email = TextEditingController(text: "");
+  final TextEditingController _password = TextEditingController(text: "");
+  String test = "test";
   bool hidePassword = true;
   @override
   Widget build(BuildContext context) {
@@ -18,10 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       theme: globalTheme.get(),
       home: Scaffold(
-        // appBar: AppBar(
-        //     title: const Text(
-        //   'Login Page ! login you fucker',
-        // )),
+        appBar: AppBar(title: Text(test)),
         body: Center(
           child: Container(
             width: 400,
@@ -30,9 +32,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const TextField(
+                TextField(
                   maxLines: 1,
                   maxLength: 100,
+                  controller: _email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter your username',
@@ -44,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   maxLines: 1,
                   maxLength: 100,
+                  controller: _password,
                   obscureText: hidePassword,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
@@ -69,13 +73,23 @@ class _LoginPageState extends State<LoginPage> {
                   child: Hero(
                     tag: 'in',
                     child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const homePage(),
-                          ),
-                        );
+                      onPressed: () async {
+                        User u = User.loggedIn;
+                        u.email = _email.text;
+                        u.password = _password.text;
+                        String value = await MyNetwork.sendRequest(
+                            "login\n" + u.userToString());
+                        test = value;
+                        print(value.length);
+                        print('test');
+                        setState(() {});
+                        if (value == "login done") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const homePage()),
+                          );
+                        }
                       },
                       child: const Text("LogIn"),
                     ),

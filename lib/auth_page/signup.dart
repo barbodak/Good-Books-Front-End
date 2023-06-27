@@ -11,6 +11,10 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool hidePassword = true;
+  final TextEditingController _name = TextEditingController(text: "");
+  final TextEditingController _email = TextEditingController(text: "");
+  final TextEditingController _password1 = TextEditingController(text: "");
+  final TextEditingController _password2 = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style =
