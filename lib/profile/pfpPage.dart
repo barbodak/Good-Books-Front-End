@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/widgetAssets.dart';
+import 'package:the_fidibo_project/welcome_page.dart';
+import 'package:the_fidibo_project/user.dart';
+import 'package:the_fidibo_project/Network.dart';
+import 'package:the_fidibo_project/profile/editProfile.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 
 class pfpPage extends StatefulWidget {
@@ -35,20 +39,26 @@ class _pfpPageState extends State<pfpPage> {
                     ),
                   ),
                   Container(
-                    decoration: myBoxDecoration.get(
-                      globalTheme.getCS().primary.withOpacity(0.15),
-                    ),
+                    // decoration: myBoxDecoration.get(
+                    //   globalTheme.getCS().primary.withOpacity(0.15),
+                    // ),
                     padding: const EdgeInsets.all(23.0),
-                    height: 100,
-                    width: 300,
+                    height: 150,
+                    width: 100,
                     child: Text(
-                      "Barbod Coliaie\naccout ballence : 100\$",
+                      User.loggedIn.name +
+                          "\n" +
+                          User.loggedIn.email +
+                          "\n" +
+                          "accout ballence :" +
+                          User.loggedIn.accountBalance.toString() +
+                          "\$",
                       textAlign: TextAlign.center,
                       style: globalTheme.get().textTheme.labelLarge,
                     ),
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 25,
                   ),
                   Card(
                     child: ListTile(
@@ -61,7 +71,19 @@ class _pfpPageState extends State<pfpPage> {
                         size: 15,
                       ),
                       enabled: true,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const editProfile(),
+                          ),
+                        ).then((value) {
+                          // This block runs when you have returned back to the first page from second page
+                          setState(() {
+                            // Call setState to refresh the first page
+                          });
+                        });
+                      },
                       minVerticalPadding: 35,
                     ),
                   ),
@@ -80,7 +102,11 @@ class _pfpPageState extends State<pfpPage> {
                           // This is called when the user toggles the switch.
                           setState(
                             () {
+                              User.loggedIn.darkMode = (value == true ? 1 : 0);
                               globalTheme.isDrak = value;
+                              MyNetwork.sendRequest("updateUser\n" +
+                                  User.loggedIn.userToString());
+                              print(User.loggedIn.name);
                             },
                           );
                         },
@@ -132,7 +158,20 @@ class _pfpPageState extends State<pfpPage> {
                         color: Colors.red,
                       ),
                       enabled: true,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const welcome_page(),
+                          ),
+                        ).then((value) {
+                          // This block runs when you have returned back to the first page from second page
+                          setState(() {
+                            // Call setState to refresh the first page
+                          });
+                        });
+                        ;
+                      },
                       minVerticalPadding: 35,
                     ),
                   ),

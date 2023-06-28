@@ -49,7 +49,13 @@ class _welcome_pageState extends State<welcome_page> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => const LoginPage()),
-                        );
+                        ).then((value) {
+                          // This block runs when you have returned back to the first page from second page
+                          setState(() {
+                            // Call setState to refresh the first page
+                          });
+                        });
+                        ;
                       },
                       child: const Text("Login"),
                     ),
@@ -67,7 +73,13 @@ class _welcome_pageState extends State<welcome_page> {
                           MaterialPageRoute(
                             builder: (context) => const Signup(),
                           ),
-                        );
+                        ).then((value) {
+                          // This block runs when you have returned back to the first page from second page
+                          setState(() {
+                            // Call setState to refresh the first page
+                          });
+                        });
+                        ;
                       },
                       child: const Text("Signup"),
                     ),

@@ -5,28 +5,31 @@ import 'package:the_fidibo_project/Network.dart';
 import 'package:the_fidibo_project/user.dart';
 import 'package:the_fidibo_project/utils.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+class editProfile extends StatefulWidget {
+  const editProfile({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<editProfile> createState() => _editProfileState();
 }
 
-class _SignupState extends State<Signup> {
-  bool hidePassword = true;
-  final TextEditingController _name = TextEditingController(text: "");
-  final TextEditingController _email = TextEditingController(text: "");
-  final TextEditingController _password1 = TextEditingController(text: "");
+class _editProfileState extends State<editProfile> {
+  final TextEditingController _name =
+      TextEditingController(text: User.loggedIn.name);
+  final TextEditingController _email =
+      TextEditingController(text: User.loggedIn.email);
+  final TextEditingController _password1 =
+      TextEditingController(text: User.loggedIn.password);
   final TextEditingController _password2 = TextEditingController(text: "");
+  String test = "Edit Profile Details";
   Color appBarColor = Colors.green;
-  String test = "";
+  bool hidePassword = true;
   @override
   Widget build(BuildContext context) {
     final ButtonStyle style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-    return MaterialApp(
-      theme: globalTheme.get(),
-      home: Scaffold(
+    return Theme(
+      data: globalTheme.get(),
+      child: Scaffold(
         appBar: AppBar(
           title: Text(test),
           backgroundColor: appBarColor,
@@ -151,26 +154,15 @@ class _SignupState extends State<Signup> {
                           return;
                         }
                         String value = await MyNetwork.sendRequest(
-                            "signup\n" + u.userToString());
+                            "updateUser\n" + u.userToString());
                         test = value;
                         print(value.length);
-                        print('test');
                         setState(() {});
                         if (value == "done") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const homePage()),
-                          ).then((value) {
-                            // This block runs when you have returned back to the first page from second page
-                            setState(() {
-                              // Call setState to refresh the first page
-                            });
-                          });
-                          ;
+                          Navigator.pop(context);
                         }
                       },
-                      child: const Text("SignUp"),
+                      child: const Text("Edit"),
                     ),
                   ),
                 ),

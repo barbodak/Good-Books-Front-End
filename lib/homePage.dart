@@ -29,7 +29,13 @@ class _homePageState extends State<homePage> {
                   MaterialPageRoute(
                     builder: (context) => const pfpPage(),
                   ),
-                );
+                ).then((value) {
+                  // This block runs when you have returned back to the first page from second page
+                  setState(() {
+                    // Call setState to refresh the first page
+                  });
+                });
+                ;
               },
               icon: const Icon(
                 Icons.account_circle_rounded,

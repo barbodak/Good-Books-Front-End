@@ -63,7 +63,13 @@ class _bookWidgetState extends State<bookWidget> {
           MaterialPageRoute(
             builder: (context) => bookPage(myBook: widget.myBook),
           ),
-        );
+        ).then((value) {
+          // This block runs when you have returned back to the first page from second page
+          setState(() {
+            // Call setState to refresh the first page
+          });
+        });
+        ;
       },
     );
   }

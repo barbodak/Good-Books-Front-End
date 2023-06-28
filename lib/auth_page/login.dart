@@ -14,7 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _email = TextEditingController(text: "");
   final TextEditingController _password = TextEditingController(text: "");
-  String test = "test";
+  String test = "";
+  Color appBarColor = Colors.green;
   bool hidePassword = true;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,10 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       theme: globalTheme.get(),
       home: Scaffold(
-        appBar: AppBar(title: Text(test)),
+        appBar: AppBar(
+          title: Text(test),
+          backgroundColor: appBarColor,
+        ),
         body: Center(
           child: Container(
             width: 400,
@@ -38,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Enter your username',
+                    labelText: 'Enter your email',
                     counterText: ' ',
                     filled: true,
                     fillColor: Color.fromARGB(90, 15, 231, 191),
@@ -53,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                     border: const OutlineInputBorder(),
                     labelText: 'Enter your password',
                     counterText: ' ',
-                    hintText: 'make a good password',
+                    hintText: 'you remember it, right?',
                     suffixIcon: IconButton(
                       icon: Icon(hidePassword
                           ? Icons.visibility
@@ -73,7 +77,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Hero(
                     tag: 'in',
                     child: FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: appBarColor,
+                        foregroundColor: Colors.white,
+                      ),
                       onPressed: () async {
+                        appBarColor = Colors.red;
                         User u = User.loggedIn;
                         u.email = _email.text;
                         u.password = _password.text;
@@ -81,14 +90,24 @@ class _LoginPageState extends State<LoginPage> {
                             "login\n" + u.userToString());
                         test = value;
                         print(value.length);
-                        print('test');
                         setState(() {});
-                        if (value == "login done") {
+                        if (value == "done") {
+                          User.loggedIn.setUserDataFromString(
+                              await MyNetwork.sendRequest(
+                                  "getUser\n" + u.userToString()));
+                          print(User.loggedIn.name);
+                          globalTheme.isDrak =
+                              (User.loggedIn.darkMode == 1 ? true : false);
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const homePage()),
-                          );
+                            MaterialPageRoute(builder: (context) => homePage()),
+                          ).then((value) {
+                            // This block runs when you have returned back to the first page from second page
+                            setState(() {
+                              // Call setState to refresh the first page
+                            });
+                          });
+                          ;
                         }
                       },
                       child: const Text("LogIn"),

@@ -6,8 +6,9 @@ class User {
   String email = "";
   String password = "";
   int accountBalance = 0;
+  int darkMode = 0;
   String userToString() {
-    return "name:$name,,username:$email,,password:$password,,acountBalance:$accountBalance";
+    return "name:$name,,username:$email,,password:$password,,acountBalance:$accountBalance,,darkMode:$darkMode";
   }
 
   void setUserDataFromString(String s) {
@@ -18,13 +19,15 @@ class User {
       String value = expr.substring(colon + 1);
       switch (key) {
         case "name":
-          name = key;
+          name = value;
         case "password":
-          password = key;
+          password = value;
         case "username" || "email":
-          email = key;
+          email = value;
         case "accountBalance":
-          accountBalance = int.parse(key);
+          accountBalance = int.parse(value);
+        case "darkMode":
+          darkMode = int.parse(value);
       }
     }
   }
