@@ -14,6 +14,7 @@ class pfpPage extends StatefulWidget {
 }
 
 class _pfpPageState extends State<pfpPage> {
+  final TextEditingController _number = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
     // Using a Builder widget instead of a MaterialApp widget
@@ -126,7 +127,43 @@ class _pfpPageState extends State<pfpPage> {
                         color: Colors.amber[800],
                       ),
                       enabled: true,
-                      onTap: () {},
+                      onTap: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Increase Your Balance'),
+                          content: TextField(
+                            controller: _number,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Enter your Amount',
+                              counterText: ' ',
+                              hintText: 'The dev loves money!',
+                              suffixIcon: Icon(Icons.attach_money_rounded),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => editProfile()),
+                                ).then((value) {
+                                  // This block runs when you have returned back to the first page from second page
+                                  setState(() {});
+                                  Navigator.pop(context, 'OK');
+                                });
+                              },
+                              child: const Text('Confirm'),
+                            ),
+                          ],
+                        ),
+                      ),
                       minVerticalPadding: 35,
                     ),
                   ),
