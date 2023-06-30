@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:the_fidibo_project/widgetAssets.dart';
 import 'package:the_fidibo_project/welcome_page.dart';
 import 'package:the_fidibo_project/user.dart';
 import 'package:the_fidibo_project/Network.dart';
@@ -47,16 +44,21 @@ class _pfpPageState extends State<pfpPage> {
                     //   globalTheme.getCS().primary.withOpacity(0.15),
                     // ),
                     padding: const EdgeInsets.all(23.0),
-                    height: 150,
+                    height: 170,
                     width: 100,
                     child: Text(
                       User.loggedIn.name +
                           "\n" +
                           User.loggedIn.email +
                           "\n" +
-                          "accout ballence :" +
+                          "accout balence :" +
                           User.loggedIn.accountBalance.toString() +
-                          "\$",
+                          " \$\n" +
+                          (User.loggedIn.primeMonths == 0
+                              ? "You don't Have Prime!\n"
+                              : "You have " +
+                                  User.loggedIn.primeMonths.toString() +
+                                  " months left!\n"),
                       textAlign: TextAlign.center,
                       style: globalTheme.get().textTheme.labelLarge,
                     ),
@@ -175,7 +177,7 @@ class _pfpPageState extends State<pfpPage> {
                   Card(
                     child: ListTile(
                       leading: Text(
-                        'Subscribe to Fidibod Plus',
+                        'Subscribe to GoodBooks Prime',
                         style: globalTheme.get().textTheme.labelLarge,
                       ),
                       trailing: Icon(
@@ -184,7 +186,45 @@ class _pfpPageState extends State<pfpPage> {
                         color: Colors.amber[800],
                       ),
                       enabled: true,
-                      onTap: () {},
+                      onTap: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Subscribe for 10\$ per months'),
+                          content: TextField(
+                            controller: _number,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'how manny months?',
+                              counterText: ' ',
+                              hintText: 'keep in mind you balance',
+                              // suffixIcon: Icon(Icons.attach_money_rounded),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (int.parse(_number.text) <=
+                                    User.loggedIn.accountBalance / 10) {
+                                  User.loggedIn.accountBalance -=
+                                      10 * int.parse(_number.text);
+                                  User.loggedIn.primeMonths +=
+                                      int.parse(_number.text);
+                                  MyNetwork.sendRequest("updateUser\n" +
+                                      User.loggedIn.userToString());
+                                  setState(() {});
+                                  Navigator.pop(context, 'OK');
+                                }
+                              },
+                              child: const Text('Confirm'),
+                            ),
+                          ],
+                        ),
+                      ),
                       minVerticalPadding: 35,
                     ),
                   ),

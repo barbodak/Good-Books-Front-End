@@ -17,6 +17,7 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = globalTheme.get().colorScheme;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: globalTheme.get(),
       home: Scaffold(
         appBar: AppBar(

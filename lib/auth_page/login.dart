@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     final ButtonStyle style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: globalTheme.get(),
       home: Scaffold(
         appBar: AppBar(
