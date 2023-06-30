@@ -3,6 +3,7 @@ import 'package:the_fidibo_project/homePage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/Network.dart';
 import 'package:the_fidibo_project/user.dart';
+import 'package:the_fidibo_project/utils.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -96,9 +97,12 @@ class _LoginPageState extends State<LoginPage> {
                           User.loggedIn.setUserDataFromString(
                               await MyNetwork.sendRequest(
                                   "getUser\n" + u.userToString()));
-                          print(User.loggedIn.name);
+                          print(User.loggedIn.userToString());
                           globalTheme.isDrak =
                               (User.loggedIn.darkMode == 1 ? true : false);
+                          User.loggedIn.ownedBooks = utils.parsBookList(
+                              await MyNetwork.sendRequest("getOwnedBooks\n" +
+                                  User.loggedIn.userToString()));
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => homePage()),

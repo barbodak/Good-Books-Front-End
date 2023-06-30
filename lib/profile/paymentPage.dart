@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/user.dart';
 import 'package:the_fidibo_project/Network.dart';

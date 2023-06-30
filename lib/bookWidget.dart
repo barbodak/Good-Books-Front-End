@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/bookPage.dart';
 import 'package:the_fidibo_project/book.dart';
@@ -21,6 +23,7 @@ class bookWidget extends StatefulWidget {
 class _bookWidgetState extends State<bookWidget> {
   @override
   Widget build(BuildContext context) {
+    print(widget.myBook.cover);
     return InkWell(
       child: SizedBox(
         width: widget.Width,
