@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:the_fidibo_project/widgetAssets.dart';
 import 'package:the_fidibo_project/welcome_page.dart';
 import 'package:the_fidibo_project/user.dart';
 import 'package:the_fidibo_project/Network.dart';
 import 'package:the_fidibo_project/profile/editProfile.dart';
+import 'package:the_fidibo_project/profile/paymentPage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 
 class pfpPage extends StatefulWidget {
@@ -152,7 +155,9 @@ class _pfpPageState extends State<pfpPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => editProfile()),
+                                      builder: (context) => paymentPage(
+                                            Amount: _number.text,
+                                          )),
                                 ).then((value) {
                                   // This block runs when you have returned back to the first page from second page
                                   setState(() {});

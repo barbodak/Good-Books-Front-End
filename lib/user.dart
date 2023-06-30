@@ -24,7 +24,7 @@ class User {
           password = value;
         case "username" || "email":
           email = value;
-        case "accountBalance":
+        case "acountBalance":
           accountBalance = int.parse(value);
         case "darkMode":
           darkMode = int.parse(value);
