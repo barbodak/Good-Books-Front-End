@@ -19,14 +19,14 @@ class _homeDestState extends State<homeDest> {
   final ColorScheme colorScheme = globalTheme.getCS();
   @override
   Widget build(BuildContext context) {
-    var myBooks = User.loggedIn.ownedBooks;
+    var myBooks = book.allBooks;
     return SingleChildScrollView(
       child: Column(
         children: [
           mediaCard(
               BackgroundColor: Colors.white, //colorScheme.tertiaryContainer,
               CardName: 'Reading Now',
-              Books: myBooks),
+              Books: User.loggedIn.ownedBooks),
           Container(
             height: 1250,
             child: DefaultTabController(

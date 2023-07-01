@@ -9,9 +9,9 @@ class utils {
 
   static List<book> parsBookList(String s) {
     List<book> res = [];
-    var exprs = s.split('\nEND\n');
+    var exprs = s.split('\n');
     for (var expr in exprs) {
-      res.add(book.parsStr(expr));
+      if (expr.isNotEmpty) res.add(book.parsStr(expr));
     }
     return res;
   }

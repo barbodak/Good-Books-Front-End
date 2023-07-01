@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/book.dart';
 import 'package:the_fidibo_project/homePage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/Network.dart';
@@ -100,9 +101,14 @@ class _LoginPageState extends State<LoginPage> {
                           print(User.loggedIn.userToString());
                           globalTheme.isDrak =
                               (User.loggedIn.darkMode == 1 ? true : false);
-                          User.loggedIn.ownedBooks = utils.parsBookList(
-                              await MyNetwork.sendRequest("getOwnedBooks\n" +
-                                  User.loggedIn.userToString()));
+                          if (u.ownedBooksStr.length > 0) {
+                            User.loggedIn.ownedBooks = utils.parsBookList(
+                                await MyNetwork.sendRequest("getOwnedBooks\n" +
+                                    User.loggedIn.userToString()));
+                            print(u.ownedBooksStr);
+                          }
+                          book.allBooks.addAll(utils.parsBookList(
+                              await MyNetwork.sendRequest("getAllBooks\nf:f")));
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => homePage()),
