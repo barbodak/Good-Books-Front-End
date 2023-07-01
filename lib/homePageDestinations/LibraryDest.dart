@@ -18,7 +18,13 @@ enum SampleItem { item1, item2, item3, item4 }
 
 class _LibraryDestState extends State<LibraryDest> {
   SampleItem selectedMenu = SampleItem.item1;
-  List<book> myBooks = book.allBooks;
+  List<book> myBooks = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myBooks = User.loggedIn.ownedBooks;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,26 +53,26 @@ class _LibraryDestState extends State<LibraryDest> {
               initialValue: selectedMenu,
               // Callback that sets the selected popup menu item.
               onSelected: (SampleItem item) {
-                setState(() {
-                  selectedMenu = item;
-                  if (selectedMenu == SampleItem.item1) {
-                    myBooks = User.loggedIn.ownedBooks;
-                  }
-                  if (selectedMenu == SampleItem.item2) {
-                    myBooks = User.loggedIn.faveBooks;
-                  }
-                  if (selectedMenu == SampleItem.item3) {
-                    myBooks = User.loggedIn.ownedBooks;
-                  } else
-                    myBooks = [];
-                });
+                selectedMenu = item;
+                if (item == SampleItem.item1) {
+                  myBooks = User.loggedIn.ownedBooks;
+                  print(User.loggedIn.ownedBooks.length);
+                } else if (item == SampleItem.item2) {
+                  myBooks = User.loggedIn.faveBooks;
+                  print(User.loggedIn.faveBooks.length);
+                  print(myBooks.length);
+                } else if (item == SampleItem.item3) {
+                  myBooks = User.loggedIn.ownedBooks;
+                } else
+                  myBooks = [];
+                setState(() {});
               },
               itemBuilder: (BuildContext context) =>
                   <PopupMenuEntry<SampleItem>>[
                 const PopupMenuItem<SampleItem>(
                   value: SampleItem.item1,
                   child: Text(
-                    'Ownd Books',
+                    'Owned Books',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 17,

@@ -110,8 +110,6 @@ class _pfpPageState extends State<pfpPage> {
                             () {
                               User.loggedIn.darkMode = (value == true ? 1 : 0);
                               globalTheme.isDrak = value;
-                              MyNetwork.sendRequest("updateUser\n" +
-                                  User.loggedIn.userToString());
                               print(User.loggedIn.name);
                             },
                           );
@@ -214,8 +212,6 @@ class _pfpPageState extends State<pfpPage> {
                                       10 * int.parse(_number.text);
                                   User.loggedIn.primeMonths +=
                                       int.parse(_number.text);
-                                  MyNetwork.sendRequest("updateUser\n" +
-                                      User.loggedIn.userToString());
                                   setState(() {});
                                   Navigator.pop(context, 'OK');
                                 }

@@ -152,8 +152,12 @@ class _SignupState extends State<Signup> {
                           setState(() {});
                           return;
                         }
-                        String value = await MyNetwork.sendRequest(
-                            "signup\n" + u.userToString());
+                        String value = "done";
+                        User.madeUser.name = User.loggedIn.name;
+                        User.madeUser.email = User.loggedIn.email;
+                        User.madeUser.password = User.loggedIn.password;
+                        User.madeUser.ownedBooks = [];
+                        User.madeUser.faveBooks = [];
                         test = value;
                         print(value.length);
                         print('test');
