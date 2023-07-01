@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/auth_page/login.dart';
 import 'package:the_fidibo_project/homePage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/Network.dart';
@@ -161,7 +162,7 @@ class _SignupState extends State<Signup> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const homePage()),
+                                builder: (context) => const LoginPage()),
                           ).then((value) {
                             // This block runs when you have returned back to the first page from second page
                             setState(() {

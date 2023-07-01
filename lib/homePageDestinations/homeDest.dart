@@ -64,31 +64,31 @@ class _homeDestState extends State<homeDest> {
                         mediaCard(
                             BackgroundColor: colorScheme.primaryContainer,
                             CardName: 'Top Sellers',
-                            Books: myBooks),
+                            Books: myBooks.sublist(0, 4)),
                         mediaCard(
                             BackgroundColor: colorScheme.secondaryContainer,
                             CardName: 'New Release',
-                            Books: myBooks),
+                            Books: myBooks.sublist(5, 10)),
                         mediaCard(
                             BackgroundColor: colorScheme.tertiaryContainer,
-                            CardName: 'Favorit',
-                            Books: myBooks),
+                            CardName: 'Favorit of GoodBooks',
+                            Books: myBooks.sublist(11)),
                       ],
                     ),
                     Column(
                       children: [
                         mediaCard(
                             BackgroundColor: colorScheme.tertiaryContainer,
-                            CardName: 'Favorit',
-                            Books: myBooks),
+                            CardName: 'Favorit of GoodBooks',
+                            Books: []),
                         mediaCard(
                             BackgroundColor: colorScheme.secondaryContainer,
                             CardName: 'New Release',
-                            Books: myBooks),
+                            Books: []),
                         mediaCard(
                             BackgroundColor: colorScheme.primaryContainer,
                             CardName: 'Top Sellers',
-                            Books: myBooks),
+                            Books: []),
                       ],
                     )
                   ],

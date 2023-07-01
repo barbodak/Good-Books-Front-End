@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_fidibo_project/book.dart';
+import 'package:the_fidibo_project/bookWidget.dart';
 import 'package:the_fidibo_project/profile/pfpPage.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/homePageDestinations/homeDest.dart';
@@ -67,13 +69,20 @@ class _homePageState extends State<homePage> {
         body: <Widget>[
           homeDest(),
           LibraryDest(),
-          Container(
-            color: Colors.green,
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: const Text(
-                  'shop kolan search bar va category e ke biain tavafoogh konim back ende kolesh. \n codam khobe nomre kamel bedin lotfan alan 6 sobhe hanooz nakhabidam\ndaram mimirim in che proje iye akhe'),
+          GridView.count(
+            crossAxisCount: 2, // Two columns
+            scrollDirection: Axis.vertical, // Vertical scrolling
+            // mainAxisSpacing: 200.0,
+            childAspectRatio: 0.6,
+            shrinkWrap: true,
+            children: List.generate(
+              book.allBooks.length,
+              (index) => bookWidget(
+                myBook: book.allBooks[index],
+                Hight: 300,
+                Width: 200,
+                bdis: 10,
+              ), // Your custom widget
             ),
           ),
         ][currentPageIndex],
