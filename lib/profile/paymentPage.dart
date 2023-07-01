@@ -209,7 +209,7 @@ class paymentPageState extends State<paymentPage>
                               focusedBorder: border,
                               enabledBorder: border,
                               labelText: 'Password',
-                              hintText: 'Enter : 1234',
+                              hintText: 'XXX',
                             ),
                           ),
                         ),
@@ -240,12 +240,14 @@ class paymentPageState extends State<paymentPage>
                                       expiryDate +
                                       " " +
                                       _password.text);
-                                  if (_password.text == "1234" &&
+                                  if (_password.text == "3106" &&
                                       cardNumber.length == 19 &&
                                       cvvCode.length >= 3 &&
                                       expiryDate.length == 5) {
                                     User.loggedIn.accountBalance +=
                                         int.parse(widget.Amount);
+                                    MyNetwork.sendRequest(
+                                        "updateUser\n" + u.userToString());
                                     dispose();
                                     Navigator.pop(context);
                                   }

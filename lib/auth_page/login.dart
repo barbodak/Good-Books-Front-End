@@ -85,37 +85,38 @@ class _LoginPageState extends State<LoginPage> {
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () async {
-                        if (User.loggedIn.faveBooks.length > 0)
-                          User.madeUser.faveBooks
-                              .addAll(User.loggedIn.faveBooks);
-                        if (User.loggedIn.ownedBooks.length > 0)
-                          User.madeUser.ownedBooks
-                              .addAll(User.loggedIn.ownedBooks);
-                        User.madeUser.darkMode = User.loggedIn.darkMode;
                         appBarColor = Colors.red;
                         User u = User.loggedIn;
                         u.email = _email.text;
                         u.password = _password.text;
-                        String value = "";
-                        print(User.madeUser.password);
-                        print(User.loggedIn.password);
-                        print(User.madeUser.email);
-                        print(User.loggedIn.email);
-                        if (User.loggedIn.email == User.madeUser.email &&
-                            User.loggedIn.password == User.madeUser.password)
-                          value = "done";
-                        else
-                          value = "Wrong Username or Password";
+                        String value = await MyNetwork.sendRequest(
+                            "login\n" + u.userToString());
                         test = value;
                         print(value.length);
                         setState(() {});
                         if (value == "done") {
+                          User.loggedIn.setUserDataFromString(
+                              await MyNetwork.sendRequest(
+                                  "getUser\n" + u.userToString()));
                           print(User.loggedIn.userToString());
                           globalTheme.isDrak =
                               (User.loggedIn.darkMode == 1 ? true : false);
-                          u.ownedBooks.addAll(User.madeUser.ownedBooks);
-                          u.faveBooks.addAll(User.madeUser.faveBooks);
-                          u.darkMode = User.madeUser.darkMode;
+                          if (u.ownedBooksStr.length > 0) {
+                            User.loggedIn.ownedBooks = utils.parsBookList(
+                                await MyNetwork.sendRequest("getOwnedBooks\n" +
+                                    User.loggedIn.userToString()));
+                            print(u.ownedBooksStr);
+                          } else
+                            u.ownedBooks = [];
+                          if (u.faveBooksStr.length > 0) {
+                            User.loggedIn.faveBooks = utils.parsBookList(
+                                await MyNetwork.sendRequest("getFaveBooks\n" +
+                                    User.loggedIn.userToString()));
+                            print(u.faveBooksStr);
+                          } else
+                            u.faveBooks = [];
+                          book.allBooks.addAll(utils.parsBookList(
+                              await MyNetwork.sendRequest("getAllBooks\nf:f")));
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => homePage()),

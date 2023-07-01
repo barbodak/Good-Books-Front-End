@@ -2,7 +2,6 @@ import 'package:the_fidibo_project/book.dart';
 
 class User {
   static User loggedIn = new User();
-  static User madeUser = new User();
   String name = "";
   String email = "";
   String password = "";

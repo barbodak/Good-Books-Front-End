@@ -152,7 +152,8 @@ class _editProfileState extends State<editProfile> {
                           setState(() {});
                           return;
                         }
-                        String value = "done";
+                        String value = await MyNetwork.sendRequest(
+                            "updateUser\n" + u.userToString());
                         test = value;
                         print(value.length);
                         setState(() {});

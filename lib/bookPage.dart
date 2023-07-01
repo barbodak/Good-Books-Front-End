@@ -142,6 +142,8 @@ class _bookPageState extends State<bookPage> {
                                   User.loggedIn.faveBooksStr.substring(
                                       0, User.loggedIn.faveBooksStr.length - 2);
                             }
+                            await MyNetwork.sendRequest(
+                                "updateUser\n" + User.loggedIn.userToString());
                             setState(() {});
                             return;
                           }
@@ -151,6 +153,8 @@ class _bookPageState extends State<bookPage> {
                           else
                             User.loggedIn.faveBooksStr +=
                                 "##" + widget.myBook.id.toString();
+                          await MyNetwork.sendRequest(
+                              "updateUser\n" + User.loggedIn.userToString());
                           User.loggedIn.faveBooks.add(widget.myBook);
                           setState(() {});
                         },
@@ -163,7 +167,7 @@ class _bookPageState extends State<bookPage> {
                                   ),
                                   SizedBox(width: 5),
                                   Text(
-                                    "      Favorited",
+                                    "Favorited :))",
                                     style: TextStyle(
                                       fontSize: 17.5,
                                     ),
@@ -227,6 +231,8 @@ class _bookPageState extends State<bookPage> {
                               else
                                 User.loggedIn.ownedBooksStr +=
                                     "##" + widget.myBook.id.toString();
+                              await MyNetwork.sendRequest("updateUser\n" +
+                                  User.loggedIn.userToString());
                               User.loggedIn.ownedBooks.add(widget.myBook);
                               setState(() {});
                             }
