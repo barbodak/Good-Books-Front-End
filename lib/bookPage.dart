@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:the_fidibo_project/ReviewPage.dart';
+import 'package:the_fidibo_project/user.dart';
 import 'package:the_fidibo_project/userPrefs/globalTheme.dart';
 import 'package:the_fidibo_project/book.dart';
+import 'package:the_fidibo_project/Network.dart';
+import 'package:the_fidibo_project/utils.dart';
 import 'package:the_fidibo_project/widgetAssets.dart';
 
 class bookPage extends StatefulWidget {
@@ -14,7 +17,11 @@ class bookPage extends StatefulWidget {
 }
 
 class _bookPageState extends State<bookPage> {
+  bool owns = false;
+  bool faves = false;
   Widget build(BuildContext context) {
+    owns = utils.hasThisBook(User.loggedIn.ownedBooks, widget.myBook);
+    faves = utils.hasThisBook(User.loggedIn.faveBooks, widget.myBook);
     return Builder(
       builder: (context) {
         // Using the same theme as the first page
@@ -95,7 +102,7 @@ class _bookPageState extends State<bookPage> {
                       },
                     ),
                     trailing: SizedBox(
-                      width: 195,
+                      width: 200,
                       height: 50,
                       child: FilledButton(
                         style: ButtonStyle(
@@ -120,19 +127,65 @@ class _bookPageState extends State<bookPage> {
                             },
                           ),
                         ),
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            Icon(Icons.add),
-                            SizedBox(width: 5),
-                            Text(
-                              "Want To Read",
-                              style: TextStyle(
-                                fontSize: 17.5,
+                        onPressed: () async {
+                          if (faves) {
+                            User.loggedIn.faveBooksStr = "";
+                            for (var b in User.loggedIn.faveBooks) {
+                              if (b.id == widget.myBook.id)
+                                User.loggedIn.faveBooks.remove(b);
+                              else
+                                User.loggedIn.faveBooksStr +=
+                                    b.id.toString() + "##";
+                            }
+                            if (User.loggedIn.faveBooksStr.length > 2) {
+                              User.loggedIn.faveBooksStr =
+                                  User.loggedIn.faveBooksStr.substring(
+                                      0, User.loggedIn.faveBooksStr.length - 2);
+                            }
+                            await MyNetwork.sendRequest(
+                                "updateUser\n" + User.loggedIn.userToString());
+                            setState(() {});
+                            return;
+                          }
+                          if (User.loggedIn.faveBooks.length == 0)
+                            User.loggedIn.faveBooksStr +=
+                                widget.myBook.id.toString();
+                          else
+                            User.loggedIn.faveBooksStr +=
+                                "##" + widget.myBook.id.toString();
+                          await MyNetwork.sendRequest(
+                              "updateUser\n" + User.loggedIn.userToString());
+                          User.loggedIn.faveBooks.add(widget.myBook);
+                          setState(() {});
+                        },
+                        child: faves
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Favorited :))",
+                                    style: TextStyle(
+                                      fontSize: 17.5,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Icon(Icons.favorite),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Add to Favorits",
+                                    style: TextStyle(
+                                      fontSize: 17.5,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
                       ),
                     ),
                   ),
@@ -166,8 +219,25 @@ class _bookPageState extends State<bookPage> {
                               },
                             ),
                           ),
-                          onPressed: () {},
-                          child: Text("BUY | \$15"),
+                          onPressed: () async {
+                            if (owns) {
+                              return;
+                            }
+                            if (User.loggedIn.accountBalance >= 10) {
+                              User.loggedIn.accountBalance -= 10;
+                              if (User.loggedIn.ownedBooks.length == 0)
+                                User.loggedIn.ownedBooksStr +=
+                                    widget.myBook.id.toString();
+                              else
+                                User.loggedIn.ownedBooksStr +=
+                                    "##" + widget.myBook.id.toString();
+                              await MyNetwork.sendRequest("updateUser\n" +
+                                  User.loggedIn.userToString());
+                              User.loggedIn.ownedBooks.add(widget.myBook);
+                              setState(() {});
+                            }
+                          },
+                          child: owns ? Text("Read Now") : Text("BUY | \$15"),
                         ),
                       )
                     ],

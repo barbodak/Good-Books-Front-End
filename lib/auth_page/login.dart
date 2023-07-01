@@ -106,7 +106,15 @@ class _LoginPageState extends State<LoginPage> {
                                 await MyNetwork.sendRequest("getOwnedBooks\n" +
                                     User.loggedIn.userToString()));
                             print(u.ownedBooksStr);
-                          }
+                          } else
+                            u.ownedBooks = [];
+                          if (u.faveBooksStr.length > 0) {
+                            User.loggedIn.faveBooks = utils.parsBookList(
+                                await MyNetwork.sendRequest("getFaveBooks\n" +
+                                    User.loggedIn.userToString()));
+                            print(u.faveBooksStr);
+                          } else
+                            u.faveBooks = [];
                           book.allBooks.addAll(utils.parsBookList(
                               await MyNetwork.sendRequest("getAllBooks\nf:f")));
                           Navigator.push(

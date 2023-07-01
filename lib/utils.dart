@@ -15,4 +15,9 @@ class utils {
     }
     return res;
   }
+
+  static bool hasThisBook(List<book> list, book boo) {
+    for (var b in list) if (b.id == boo.id) return true;
+    return false;
+  }
 }
